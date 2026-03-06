@@ -112,19 +112,19 @@ const CartItems = ({trans} : {trans : {[key : string] : string}}) => {
           </ul>
           <div className="flex flex-col justify-end items-end pt-6">
             <span className="text-gray-400 font-medium my-2">
-              SubTotal :
+              {trans.subTotal}
               <strong className="text-black mx-1">
                 {formattCurrency(SubTotal)}
               </strong>
             </span>
             <span className="text-gray-400 font-medium my-1">
-              Delivery Fees :
+             {trans.DeliveryFees}
               <strong className="text-black mx-1">
                 {formattCurrency(Delivery_Fees)}
               </strong>
             </span>
             <span className="text-gray-400 font-medium my-1">
-              Total :
+              {trans.total}
               <strong className="text-black mx-1">
                 {formattCurrency(SubTotal + Delivery_Fees)}
               </strong>

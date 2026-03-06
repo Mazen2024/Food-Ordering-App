@@ -233,8 +233,11 @@
   "extrasIngredients": "Extras Ingredients",
   "create": "Create",
   "cart": {
-    "title": "Shopping Cart",
-    "noItemsInCart": "There are no items in your cart. Add some"
+  "title": "Shopping Cart",
+  "noItemsInCart": "There are no items in your cart. Add some",
+  "subTotal" : "SubTotal",
+  "DeliveryFees" : "Delivery Fees",
+  "total" : "Total"
   },
   "copyRight": "© 2026 All rights reserved",
   "noProductsFound": "No products found",
