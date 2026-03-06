@@ -13,9 +13,6 @@ const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : 
 
   const pathName = usePathname()
 
-  console.log(pathName);
-  
-
   const navItems = [
     {
       id: crypto.randomUUID(),

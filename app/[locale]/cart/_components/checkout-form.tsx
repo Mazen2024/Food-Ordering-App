@@ -8,7 +8,7 @@ import { formattCurrency } from "@/lib/formatters";
 import { SelectedCartItems } from "@/Redux/features/cart/cartslice";
 import { useAppSelector } from "@/Redux/hooks";
 
-const CheckOutForm = ({ profile }: { profile: { [key: string]: string } }) => {
+const CheckOutForm = ({ profile }: { profile: { [key: string]: any } }) => {
   const cart = useAppSelector(SelectedCartItems);
 
   const SubTotal = GetSubTotal(cart);
@@ -23,7 +23,9 @@ const CheckOutForm = ({ profile }: { profile: { [key: string]: string } }) => {
     cart &&
     cart.length > 0 && (
       <div className="grid gap-6 bg-gray-100 rounded-md p-4">
-        <h2 className="text-2xl text-black font-semibold">{profile.checkout}</h2>
+        <h2 className="text-2xl text-black font-semibold">
+          {profile.checkout}
+        </h2>
         <form>
           <div className="grid gap-4">
             <div className="grid gap-1">
@@ -49,7 +51,7 @@ const CheckOutForm = ({ profile }: { profile: { [key: string]: string } }) => {
             </div>
             <div className="grid gap-1">
               <Label htmlFor="postal" className="text-gray-400">
-                 {form.postalCode.label}
+                {form.postalCode.label}
               </Label>
               <Input
                 id="postal"
@@ -59,7 +61,7 @@ const CheckOutForm = ({ profile }: { profile: { [key: string]: string } }) => {
             </div>
             <div className="grid gap-1">
               <Label htmlFor="city" className="text-gray-400">
-                 {profile.form.city.label}
+                {profile.form.city.label}
               </Label>
               <Input
                 id="city"

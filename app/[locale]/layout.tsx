@@ -4,9 +4,8 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ReduxProvider from "@/Redux/ReduxProviders";
-import { Locale } from "@/i18n.config";
-import { headers } from "next/headers";
 import { Directions, Languages } from "@/contants/enums";
+import { getCurrentLocale } from "@/lib/getCurrentLocale";
 
 /// Font Family & Weight
 const roboto = Roboto({
@@ -23,16 +22,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string }
 }>) {
-
-  const locale = (params).locale
+  const locale = await getCurrentLocale();
 
   return (
-    <html lang={locale} dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}>
+    <html
+      lang={locale}
+      dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}
+    >
       <body className={roboto.className}>
         <ReduxProvider>
           <Header />
