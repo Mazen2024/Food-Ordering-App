@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Schema For Users Table 
+model Users {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  password      String
+  name          String
+  image         String?
+  phone         String?
+  streetaddress String?
+  postalcode    String?
+  city          String?
+  country       String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  /// One To Many Relation
+  OrderProducts OrderProducts[]
+}
+
+/// Schema For Orders Table 
+model Orders {
+  id            String          @id @default(cuid())
+  paid          Boolean         @default(false)
+  subtotal      Float
+  deliveryfees  Float
+  total         Float
+  phone         String
+  streetaddress String
+  postalcode    String
+  city          String
+  country       String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  products      OrderProducts[]
+}
+
+/// Schema For OrderProducts Table 
+model OrderProducts {
+  id         String   @id @default(cuid())
+  quantity   Int      @default(1)
+  /// One To Many Relation
+  orders     Orders   @relation(fields: [ordersId], references: [id])
+  ordersId   String
+  /// User ID is Optional In Case Of Guest User Not Authenticated
+  users      Users?   @relation(fields: [usersId], references: [id])
+  usersId    String?
+  /// One To Many Relation
+  products   products @relation(fields: [productsId], references: [id])
+  productsId String
+}
+
+/// Schema For Categories Table 
+model Categories {
+  id       String     @id @default(cuid())
+  nameAR     String
+  nameEN     String
+  order    Int        @default(autoincrement())
+  /// One To Many Relation
+  products products[]
+}
+
+/// Schema For Products Table 
+model products {
+  id            String          @id @default(cuid())
+  nameAR          String
+  nameEN          String
+  descriptionAR   String
+  descriptionEN   String
+  image         String
+  order         Int             @default(autoincrement())
+  basePrice     Float
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  /// One To Many Relation
+  sizes          Sizes[]
+  extras        Extras[]
+  categories    Categories      @relation(fields: [categoriesId], references: [id])
+  categoriesId  String
+  // One To Many Relation
+  OrderProducts OrderProducts[]
+}
+
+/// Schema For Sizes Table & Relation With Products 
+model Sizes {
+  id         String   @id @default(cuid())
+  name       ProSizes
+  price      Float    @default(1)
+  products   products @relation(fields: [productsId], references: [id])
+  productsId String
+}
+
+/// Schema For Extras Table & Relation With Products 
+model Extras {
+  id         String    @id @default(cuid())
+  name       ProExtras
+  price      Float     @default(1)
+  products   products  @relation(fields: [productsId], references: [id])
+  productsId String
+}
+
+/// Enum For Sizes Values
+enum ProSizes {
+  SMALL
+  MEDIUM
+  LARGE
+  EXTRA_LARGE
+}
+
+/// Enum For Extras Values
+enum ProExtras {
+  TOMATO
+  CHEESE
+  ONION
+  MEAT
+  PEPPER
+}
