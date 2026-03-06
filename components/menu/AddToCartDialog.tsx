@@ -50,8 +50,8 @@ const AddToCartDialog = ({
   name: string;
   basePrice: number;
   desc: string;
-  sizes: [];
-  extras: [];
+  sizes: Sizes []; 
+  extras: Extras [];
   locale: Locale;
   addTitle: string;
   sizestitle: string;

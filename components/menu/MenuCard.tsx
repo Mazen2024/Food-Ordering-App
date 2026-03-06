@@ -1,16 +1,15 @@
 import { formattCurrency } from "@/lib/formatters";
 import Image from "next/image";
 import AddToCartDialog from "./AddToCartDialog";
-import { products } from "@/lib/generated/prisma/client";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";
 import { Languages } from "@/contants/enums";
+import { ProductWithSizes_Extras } from "@/Server/DB/Products";
 
-const MenuCard = async ({ item }: { item: products }) => {
+const MenuCard = async ({ item }: { item: ProductWithSizes_Extras }) => {
+  const locale = await getCurrentLocale();
 
-  const locale = await getCurrentLocale()
-
-  const {menuItem, sizes, extrasIngredients} = await getTrans(locale)
+  const { menuItem, sizes, extrasIngredients } = await getTrans(locale);
 
   return (
     <>
@@ -25,7 +24,9 @@ const MenuCard = async ({ item }: { item: products }) => {
         ></Image>
       </div>
       <div className="flex items-center justify-between mb-2">
-        <h4 className="font-semibold text-xl my-3">{locale === Languages.ARABIC? item.nameAR : item.nameEN}</h4>
+        <h4 className="font-semibold text-xl my-3">
+          {locale === Languages.ARABIC ? item.nameAR : item.nameEN}
+        </h4>
         <strong className="text-gray-500">
           {formattCurrency(item.basePrice)}
         </strong>
@@ -38,14 +39,15 @@ const MenuCard = async ({ item }: { item: products }) => {
         img={item.image}
         name={locale === Languages.ENGLISH ? item.nameEN : item.nameAR}
         basePrice={item.basePrice}
-        desc={locale === Languages.ENGLISH ? item.descriptionEN : item.descriptionAR}
+        desc={
+          locale === Languages.ENGLISH ? item.descriptionEN : item.descriptionAR
+        }
         sizes={item.sizes}
         extras={item.extras}
-        // item = {item}
-        locale= {locale}
+        locale={locale}
         addTitle={menuItem.addToCart}
-        sizestitle ={sizes}
-        extratitle = {extrasIngredients}
+        sizestitle={sizes}
+        extratitle={extrasIngredients}
       />
     </>
   );

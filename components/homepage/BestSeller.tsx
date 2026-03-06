@@ -9,26 +9,23 @@ async function BestSeller() {
   /// Fetch DB Products
   const bestSellerItems = await GetBestSeller(6);
 
-  // const cat = await prismaObj.products.createMany({
+  // const cat = await prismaObj.sizes.createMany({
   //   data: [
   //     {
-  //       nameEN: "Paneer Tikka Pizza",
-  //       nameAR: "بيتزا بانير تيكا",
-  //       descriptionAR: "مزيج هندي-إيطالي يجمع بين جبن البانير المتبّل، وصلصة حارة، وخضروات متنوعة.",
-  //       descriptionEN : "Indian-Italian fusion with marinated paneer, spicy sauce, and veggies.",
-  //       basePrice : 160.12,
-  //       categoriesId : "cmmcmgtlh0000koei0w6b1b4a",
-  //       image : '/assets/images/Pro5.jpg',
+  //       name : 'SMALL',
+  //       price : 10,
+  //       productsId: "cmmcmmmt100003geic39qmmt0",
   //     },
   //     {
-  //       nameEN: "Flammkuchen (Alsace)",
-  //       nameAR: "فلامكوشن (الألزاس)",
-  //       descriptionAR: "عجينة رقيقة جدًا ومقرمشة، مع القشدة الحامضة، والبصل، واللحم المقدد.",
-  //       descriptionEN : "A very thin, crisp dough with sour cream, onions, and bacon.",
-  //       basePrice : 500,
-  //       categoriesId : "cmmcmgtlh0000koei0w6b1b4a",
-  //       image : '/assets/images/Pro5.jpg',
-  //     }
+  //       name : 'MEDIUM',
+  //       price : 20,
+  //       productsId: "cmmcmmmt100003geic39qmmt0",
+  //     },
+  //     {
+  //       name : 'LARGE',
+  //       price : 50,
+  //       productsId: "cmmcmmmt100003geic39qmmt0",
+  //     },
   //   ],
   // });
 

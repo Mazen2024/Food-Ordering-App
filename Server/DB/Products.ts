@@ -1,4 +1,5 @@
 import { cache } from "@/lib/Cash/Cache";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { prismaObj } from "@/lib/prisma";
 
 export const GetBestSeller = cache(
@@ -39,3 +40,11 @@ export const GetAllCategories = cache(
   ["All-Categories"],
   { revalidate: 3600 },
 );
+
+
+export type ProductWithSizes_Extras = Prisma.productsGetPayload<{
+  include: {
+    sizes: true,
+    extras : true
+  }
+}>
