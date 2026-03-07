@@ -13,8 +13,7 @@ export default async function Home() {
   //     description : 'The original pizza from Naples, Italy, featuring a thin, soft, and bubbly crust cooked quickly in a wood-fired oven.',
   //     image : '/assets/images/Pro4.png',
   //   },
-  // });
-
+  // });  
 
   return (
     <main>

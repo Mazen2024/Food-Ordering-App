@@ -9,7 +9,7 @@ import { ProductWithSizes_Extras } from "@/Server/DB/Products";
 const MenuCard = async ({ item }: { item: ProductWithSizes_Extras }) => {
   const locale = await getCurrentLocale();
 
-  const { menuItem, sizes, extrasIngredients } = await getTrans(locale);
+  const { menuItem, sizes, extrasIngredients, saveChanges, removeItem } = await getTrans(locale);
 
   return (
     <>
@@ -48,6 +48,8 @@ const MenuCard = async ({ item }: { item: ProductWithSizes_Extras }) => {
         addTitle={menuItem.addToCart}
         sizestitle={sizes}
         extratitle={extrasIngredients}
+        saveChanges = {saveChanges}
+        removeItem = {removeItem}
       />
     </>
   );

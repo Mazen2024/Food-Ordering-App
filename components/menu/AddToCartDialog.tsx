@@ -44,6 +44,8 @@ const AddToCartDialog = ({
   addTitle,
   sizestitle,
   extratitle,
+  removeItem, 
+  saveChanges
 }: {
   id: string;
   img: string;
@@ -56,6 +58,8 @@ const AddToCartDialog = ({
   addTitle: string;
   sizestitle: string;
   extratitle: string;
+  removeItem : string, 
+  saveChanges : string
 }) => {
   /// Cart Items Instance
   const cart = useAppSelector(SelectedCartItems);
@@ -184,6 +188,8 @@ const AddToCartDialog = ({
                 basePrice={basePrice}
                 sizes={selectedSize}
                 extras={selectedExtras}
+                removeItem ={removeItem}
+                saveChanges = {saveChanges}
               />
             )}
           </DialogFooter>
@@ -202,6 +208,8 @@ const ChooseQuantity = ({
   basePrice,
   sizes,
   extras,
+  removeItem,
+  saveChanges
 }: {
   qty: number;
   name: string;
@@ -210,6 +218,8 @@ const ChooseQuantity = ({
   basePrice: number;
   sizes: Sizes;
   extras: Extras[];
+  removeItem : string;
+  saveChanges : string
 }) => {
   /// Dispatch Action
   const dispatch = useAppDispatch();
@@ -260,7 +270,7 @@ const ChooseQuantity = ({
           className="mt-4 font-semibold cursor-pointer"
           size={"lg"}
         >
-          Remove Item
+          {removeItem}
         </Button>
         <Button
           onClick={() =>
@@ -278,7 +288,7 @@ const ChooseQuantity = ({
           className="mt-4 font-semibold cursor-pointer"
           size={"lg"}
         >
-          Save Changes
+          {saveChanges}
         </Button>
       </div>
     </div>

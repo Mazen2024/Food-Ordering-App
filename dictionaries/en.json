@@ -241,5 +241,7 @@
   },
   "copyRight": "© 2026 All rights reserved",
   "noProductsFound": "No products found",
-  "noCategoriesFound": "No categories found"
+  "noCategoriesFound": "No categories found",
+  "saveChanges" : "Save Changes",
+  "removeItem" : "Remove Item"
 }

@@ -241,6 +241,8 @@
   },
   "copyRight": "© 2026 جميع الحقوق محفوظة",
   "noProductsFound": "لم يتم العثور على منتجات",
-  "noCategoriesFound": "لم يتم العثور على الفئات"
+  "noCategoriesFound": "لم يتم العثور على الفئات",
+  "saveChanges" : "حفظ التعديلات",
+  "removeItem" : "حذف العنصر"
 
 }
