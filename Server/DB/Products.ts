@@ -21,7 +21,7 @@ export const GetBestSeller = cache(
     return bestSellerItems;
   },
   ["Best-Sellers"],
-  { revalidate: 3600 },
+  { revalidate: 1 },
 );
 
 export const GetAllCategories = cache(
@@ -38,7 +38,7 @@ export const GetAllCategories = cache(
     return AllCategories;
   },
   ["All-Categories"],
-  { revalidate: 3600 },
+  { revalidate: 1 },
 );
 
 
