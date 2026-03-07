@@ -33,11 +33,17 @@ export default async function proxy(request: NextRequest) {
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}`),
   );
-  // Redirect if there is no locale
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+
+      // لو المستخدم داخل على /
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/en", request.url));
   }
+  
+  // // Redirect if there is no locale
+  // if (pathnameIsMissingLocale) {
+  //   const locale = getLocale(request);
+  //   return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+  // }
 
   return NextResponse.next({
     request: {
