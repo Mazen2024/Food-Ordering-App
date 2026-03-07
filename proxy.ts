@@ -34,10 +34,20 @@ export default async function proxy(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}`),
   );
 
+<<<<<<< HEAD
     // لو المستخدم داخل على /
+=======
+      // لو المستخدم داخل على /
+>>>>>>> 7848054cbcfd6b9462df974c957010197f910bfd
   if (pathname === "/") {
     return NextResponse.redirect(new URL("/en", request.url));
   }
+  
+  // // Redirect if there is no locale
+  // if (pathnameIsMissingLocale) {
+  //   const locale = getLocale(request);
+  //   return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+  // }
 
   // // Redirect if there is no locale
   // if (pathnameIsMissingLocale) {
