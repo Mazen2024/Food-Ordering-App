@@ -23,7 +23,7 @@ const Hero = async () => {
           <p className="text-gray-600 my-8">{hero.description}</p>
           <div className="flex items-center gap-4 mt-4">
             <Custom_Link
-              href={`${Routes.MENU}`}
+              href={`/${locale}${Routes.MENU}`}
               className={`${buttonVariants({ size: "lg" })} space-x-2! px-4! rounded-full! uppercase`}
             >
               {hero.orderNow}
@@ -32,7 +32,7 @@ const Hero = async () => {
               />
             </Custom_Link>
             <Custom_Link
-              href={`${Routes.ABOUT}`}
+              href={`/${locale}${Routes.ABOUT}`}
               className="gap-2 flex items-center text-black hover:text-primary transition-all duration-200 font-semibold"
             >
               {hero.learnMore}

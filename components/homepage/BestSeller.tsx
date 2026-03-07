@@ -13,18 +13,18 @@ async function BestSeller() {
   //   data: [
   //     {
   //       name : 'SMALL',
-  //       price : 10,
-  //       productsId: "cmmcmmmt100003geic39qmmt0",
+  //       price : 30,
+  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
   //     },
   //     {
   //       name : 'MEDIUM',
-  //       price : 20,
-  //       productsId: "cmmcmmmt100003geic39qmmt0",
+  //       price : 40,
+  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
   //     },
   //     {
   //       name : 'LARGE',
   //       price : 50,
-  //       productsId: "cmmcmmmt100003geic39qmmt0",
+  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
   //     },
   //   ],
   // });
