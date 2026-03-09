@@ -54,7 +54,7 @@ const AddToCartDialog = ({
   img: string;
   // name: string;
   nameAR: string;
-  nameEn : string;
+  nameEN : string;
   basePrice: number;
   desc: string;
   sizes: Sizes[];
