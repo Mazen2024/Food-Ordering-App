@@ -37,7 +37,9 @@ const MenuCard = async ({ item }: { item: ProductWithSizes_Extras }) => {
       <AddToCartDialog
         id={item.id}
         img={item.image}
-        name={locale === Languages.ENGLISH ? item.nameEN : item.nameAR}
+        // name={locale === Languages.ENGLISH ? item.nameEN : item.nameAR}
+        nameAR = {item.nameAR} 
+        nameEN = {item.nameEN} 
         basePrice={item.basePrice}
         desc={
           locale === Languages.ENGLISH ? item.descriptionEN : item.descriptionAR

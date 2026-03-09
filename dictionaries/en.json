@@ -1,4 +1,4 @@
-{
+{  
   "logo": "Pizza",
   "home": {
     "hero": {
@@ -158,6 +158,9 @@
         "validation": {
           "required": "Country is required"
         }
+      },
+      "pay" : {
+        "pay" : "Pay"
       }
     }
   },
@@ -237,7 +240,10 @@
   "noItemsInCart": "There are no items in your cart. Add some",
   "subTotal" : "SubTotal",
   "DeliveryFees" : "Delivery Fees",
-  "total" : "Total"
+  "total" : "Total",
+  "qty" : "Quantity",
+  "size" : "Size",
+  "extras" : "Extras"
   },
   "copyRight": "© 2026 All rights reserved",
   "noProductsFound": "No products found",

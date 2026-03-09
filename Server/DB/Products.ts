@@ -21,7 +21,8 @@ export const GetBestSeller = cache(
     return bestSellerItems;
   },
   ["Best-Sellers"],
-  { revalidate: 3600 },
+  /// Revalidate Within One Minute
+  { revalidate: 60 },
 );
 
 export const GetAllCategories = cache(
@@ -38,13 +39,12 @@ export const GetAllCategories = cache(
     return AllCategories;
   },
   ["All-Categories"],
-  { revalidate: 3600 },
+  { revalidate: 60 },
 );
-
 
 export type ProductWithSizes_Extras = Prisma.productsGetPayload<{
   include: {
-    sizes: true,
-    extras : true
-  }
-}>
+    sizes: true;
+    extras: true;
+  };
+}>;

@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Languages } from "@/contants/enums";
 import { Locale } from "@/i18n.config";
 import { GetSubTotal } from "@/lib/Cart/cart";
 import { formattCurrency } from "@/lib/formatters";
-import getTrans from "@/lib/translation";
 import {
   removeItemFromCart,
   SelectedCartItems,
@@ -11,10 +11,9 @@ import {
 import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
-const CartItems = ({trans} : {trans : {[key : string] : string}}) => {
+const CartItems = ({ trans, locale }: { trans: { [key: string]: string }, locale : Locale }) => {
   const cart = useAppSelector(SelectedCartItems);
 
   const dispatch = useAppDispatch();
@@ -47,26 +46,26 @@ const CartItems = ({trans} : {trans : {[key : string] : string}}) => {
                       <Image
                         src={item.img}
                         className="object-contain"
-                        alt={item.name}
+                        alt={item.nameEN}
                         fill
                       />
                     </div>
 
                     <div>
-                      <h4 className="font-semibold md:text-lg text-primary">
-                        {item.name}
+                      <h4 className="font-semibold md:text-2xl text-primary">
+                        {locale === Languages.ENGLISH ? item.nameEN : item.nameAR}
                       </h4>
                       <div className="relative mt-2">
                         {item.sizes && (
                           <span className="text-sm text-blue-700 font-bold">
-                            Size : {item.sizes.name}
+                            {trans.size} : {item.sizes.name}
                             {"  =  "}
                             {formattCurrency(item.sizes.price)}
                           </span>
                         )}
                         {item.extras && item.extras.length > 0 && (
-                          <div className="flex gap-1 items-center mt-2">
-                            <p className="block font-bold pr-5">Extras : </p>
+                          <div className="flex gap-1 items-center mt-2 flex-wrap">
+                            <p className="block font-bold pr-5 text-cyan-600">{trans.extras} : </p>
                             <ul className="flex flex-col justify-center">
                               {item.extras.map((extra) => (
                                 <li key={extra.id}>
@@ -81,7 +80,7 @@ const CartItems = ({trans} : {trans : {[key : string] : string}}) => {
 
                         <div className="mt-2">
                           <span className="text-sm text-black font-bold">
-                            Quantity : {item.quantity}
+                            {trans.qty} : {item.quantity}
                           </span>
                         </div>
                       </div>
@@ -110,21 +109,21 @@ const CartItems = ({trans} : {trans : {[key : string] : string}}) => {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col justify-end items-end pt-6">
+          <div className={`flex flex-col justify-end items-start pt-6`}>
             <span className="text-gray-400 font-medium my-2">
-              {trans.subTotal}
+              {trans.subTotal} =
               <strong className="text-black mx-1">
                 {formattCurrency(SubTotal)}
               </strong>
             </span>
             <span className="text-gray-400 font-medium my-1">
-             {trans.DeliveryFees}
+              {trans.DeliveryFees} =
               <strong className="text-black mx-1">
                 {formattCurrency(Delivery_Fees)}
               </strong>
             </span>
             <span className="text-gray-400 font-medium my-1">
-              {trans.total}
+              {trans.total} =
               <strong className="text-black mx-1">
                 {formattCurrency(SubTotal + Delivery_Fees)}
               </strong>

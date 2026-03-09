@@ -31,11 +31,14 @@ import {
 } from "@/Redux/features/cart/cartslice";
 import { GetItemQuantity } from "@/lib/Cart/cart";
 import { Locale } from "@/i18n.config";
+import { Languages } from "@/contants/enums";
 
 const AddToCartDialog = ({
   id,
   img,
-  name,
+  // name,
+  nameAR,
+  nameEN,
   basePrice,
   desc,
   sizes,
@@ -44,22 +47,24 @@ const AddToCartDialog = ({
   addTitle,
   sizestitle,
   extratitle,
-  removeItem, 
-  saveChanges
+  removeItem,
+  saveChanges,
 }: {
   id: string;
   img: string;
-  name: string;
+  // name: string;
+  nameAR: string;
+  nameEn : string;
   basePrice: number;
   desc: string;
-  sizes: Sizes []; 
-  extras: Extras [];
+  sizes: Sizes[];
+  extras: Extras[];
   locale: Locale;
   addTitle: string;
   sizestitle: string;
   extratitle: string;
-  removeItem : string, 
-  saveChanges : string
+  removeItem: string;
+  saveChanges: string;
 }) => {
   /// Cart Items Instance
   const cart = useAppSelector(SelectedCartItems);
@@ -93,7 +98,8 @@ const AddToCartDialog = ({
   const handleAddToCart = () => {
     dispatch(
       addCartItem_increaseQuantity({
-        name,
+        nameAR,
+        nameEN,
         img,
         basePrice,
         id,
@@ -132,7 +138,7 @@ const AddToCartDialog = ({
                 className="object-cover"
               ></Image>
             </div>
-            <DialogTitle className="mb-4 mt-2">{name}</DialogTitle>
+            <DialogTitle className="mb-4 mt-2">{locale === Languages.ENGLISH ? nameEN : nameAR}</DialogTitle>
             <DialogDescription className="text-center">
               {desc}
             </DialogDescription>
@@ -150,7 +156,7 @@ const AddToCartDialog = ({
                 basePrice={basePrice}
                 selectedSize={selectedSize}
                 setselectedSize={setselectedSize}
-                locale = {locale}
+                locale={locale}
               />
             </div>
             <div>
@@ -182,14 +188,15 @@ const AddToCartDialog = ({
             ) : (
               <ChooseQuantity
                 qty={ItemQuantity}
-                name={name}
+                nameAR={nameAR}
+                nameEN={nameEN}
                 id={id}
                 img={img}
                 basePrice={basePrice}
                 sizes={selectedSize}
                 extras={selectedExtras}
-                removeItem ={removeItem}
-                saveChanges = {saveChanges}
+                removeItem={removeItem}
+                saveChanges={saveChanges}
               />
             )}
           </DialogFooter>
@@ -202,24 +209,28 @@ const AddToCartDialog = ({
 /// Increase & Decrease Quantity Component
 const ChooseQuantity = ({
   qty,
-  name,
+  // name,
+  nameAR,
+  nameEN,
   id,
   img,
   basePrice,
   sizes,
   extras,
   removeItem,
-  saveChanges
+  saveChanges,
 }: {
   qty: number;
-  name: string;
+  // name: string;
+  nameAR : string;
+  nameEN : string;
   id: string;
   img: string;
   basePrice: number;
   sizes: Sizes;
   extras: Extras[];
-  removeItem : string;
-  saveChanges : string
+  removeItem: string;
+  saveChanges: string;
 }) => {
   /// Dispatch Action
   const dispatch = useAppDispatch();
@@ -243,7 +254,8 @@ const ChooseQuantity = ({
           onClick={() =>
             dispatch(
               addCartItem_increaseQuantity({
-                name,
+                nameAR,
+                nameEN,
                 img,
                 basePrice,
                 id,
@@ -276,7 +288,8 @@ const ChooseQuantity = ({
           onClick={() =>
             dispatch(
               UpdateCartItems({
-                name,
+                nameAR,
+                nameEN,
                 img,
                 basePrice,
                 id,

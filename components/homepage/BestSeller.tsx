@@ -9,26 +9,6 @@ async function BestSeller() {
   /// Fetch DB Products
   const bestSellerItems = await GetBestSeller(6);
 
-  // const cat = await prismaObj.sizes.createMany({
-  //   data: [
-  //     {
-  //       name : 'SMALL',
-  //       price : 30,
-  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
-  //     },
-  //     {
-  //       name : 'MEDIUM',
-  //       price : 40,
-  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
-  //     },
-  //     {
-  //       name : 'LARGE',
-  //       price : 50,
-  //       productsId: "cmmcmbb0z00015geilr3wi5mp",
-  //     },
-  //   ],
-  // });
-
   // const bestSellerItems = [
   //   {
   //     id: crypto.randomUUID(),

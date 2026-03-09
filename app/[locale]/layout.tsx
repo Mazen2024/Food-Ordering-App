@@ -29,7 +29,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={locale}
+      lang={locale}      
       dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}
     >
       <body className={roboto.className}>

@@ -13,7 +13,7 @@ const AboutUsPage = () => {
           height={400}
           alt="About-Image"
           // Override Lazy Loading Behavior
-          loading="eager"
+          loading="eager"          
           className="object-cover z-[-999] opacity-80 absolute top-50"
         ></Image>
       </div>

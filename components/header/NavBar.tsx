@@ -1,5 +1,5 @@
 "use client";
-import { Pages, Routes } from "@/contants/enums";
+import { Directions, Languages, Pages, Routes } from "@/contants/enums";
 import Custom_Link from "../customlink";
 import { Button, buttonVariants } from "../ui/button";
 import { Key, Menu, XIcon } from "lucide-react";
@@ -8,6 +8,7 @@ import CartButtons from "./CartButtons";
 import { Locale } from "@/i18n.config";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./language-switcher";
+import { Direction } from "radix-ui";
 
 const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : Locale }) => {
 
@@ -32,7 +33,7 @@ const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : 
     {
       id: crypto.randomUUID(),
       name: trans.login,
-      href: `/${locale}${Routes.AUTH}/${Pages.LOGIN}`,
+      href: `/${locale}${Routes.AUTH}/${Pages.LOGIN}`, 
     },
   ];
 
@@ -67,7 +68,7 @@ const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : 
         </Button>
         {navItems.map((item) => {
           return (
-            <li key={item.id} className="list-none capitalize">
+            <li key={item.id} className="list-none capitalize" dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}>
               <Custom_Link
                 onClick={() => setopenMenu(false)}
                 className={` 
