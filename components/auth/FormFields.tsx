@@ -2,7 +2,6 @@
 import { FormField } from "@/lib/types/app";
 import PasswordField from "./PasswordField";
 import { InputTypes } from "@/contants/enums";
-import CheckBoxField from "./CheckBoxField";
 import TextField from "./TextField";
 // import { ValidationErrors } from "@/validations/auth";
 
@@ -21,9 +20,9 @@ const FormFields = (props: Props) => {
       return <PasswordField {...props} />;
     }
 
-    if (type === InputTypes.CHECKBOX) {
-      return <CheckBoxField {...props} />;
-    }
+    // if (type === InputTypes.CHECKBOX) {
+    //   return <CheckBoxField {...props} />;
+    // }
 
     return <TextField {...props} />;
   };
