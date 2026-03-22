@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Cairo, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -11,6 +11,14 @@ import { getCurrentLocale } from "@/lib/getCurrentLocale";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["200", "300", "400"],
+  /// تجهيز الفونت فاميلي عند عرض الصفحة
+  preload: true,
+});
+
+/// Font Family & Weight
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["200", "300", "400", "500", "600", "700"],
   /// تجهيز الفونت فاميلي عند عرض الصفحة
   preload: true,
 });
@@ -32,7 +40,7 @@ export default async function RootLayout({
       lang={locale}      
       dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}
     >
-      <body className={roboto.className}>
+      <body className={locale === Languages.ENGLISH ? roboto.className : cairo.className}>
         <ReduxProvider>
           <Header />
           {children}

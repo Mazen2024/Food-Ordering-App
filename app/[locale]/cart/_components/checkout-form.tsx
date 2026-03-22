@@ -81,7 +81,7 @@ const CheckOutForm = ({ profile }: { profile: { [key: string]: any } }) => {
                 name="country"
               />
             </div>
-            <Button type="button" className="h-10 my-8 font-bold">
+            <Button disabled type="button" className="h-10 my-8 font-bold">
               {form.pay.pay} <span className="text-xl text-green-400">{formattCurrency(TotalAmount)}</span>
             </Button>
           </div>

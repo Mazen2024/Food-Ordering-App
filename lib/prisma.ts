@@ -5,7 +5,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
-    // log : process.env.NODE_ENV === Environments.DEV ? ['query', 'error', 'warn'] : ['error'],
+    log : process.env.NODE_ENV === Environments.DEV ? ['query', 'error', 'warn'] : ['error'],
 });
 
 export const prismaObj = new PrismaClient({ adapter  });
