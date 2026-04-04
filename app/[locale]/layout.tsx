@@ -6,6 +6,8 @@ import Footer from "@/components/footer";
 import ReduxProvider from "@/Redux/ReduxProviders";
 import { Directions, Languages } from "@/contants/enums";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
+import { Toaster } from "@/components/ui/sonner";
+import NextAuthSessionProvider from "@/Redux/NextAuthSessionProvider";
 
 /// Font Family & Weight
 const roboto = Roboto({
@@ -37,15 +39,22 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={locale}      
+      lang={locale}
       dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}
     >
-      <body className={locale === Languages.ENGLISH ? roboto.className : cairo.className}>
-        <ReduxProvider>
-          <Header />
-          {children}
-          <Footer />
-        </ReduxProvider>
+      <body
+        className={
+          locale === Languages.ENGLISH ? roboto.className : cairo.className
+        }
+      >
+        <NextAuthSessionProvider>
+          <ReduxProvider>
+            <Header />
+            {children}
+            <Footer />
+            <Toaster position="top-center" />
+          </ReduxProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

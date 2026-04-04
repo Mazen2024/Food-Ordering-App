@@ -1,22 +1,23 @@
 export enum Directions {
-    RTL = 'rtl',
-    LTR = 'ltr'
+  RTL = "rtl",
+  LTR = "ltr",
 }
 
 export enum Languages {
-    ENGLISH = 'en',
-    ARABIC = 'ar'
+  ENGLISH = "en",
+  ARABIC = "ar",
 }
 
 export enum Routes {
-    ROOT = '/',
-    MENU = '/menu',
-    ABOUT = '/about',    
-    CONTACT = '/contact',
-    AUTH = '/auth',
-    CART = '/cart'
+  ROOT = "/",
+  MENU = "/menu",
+  ABOUT = "/about",
+  CONTACT = "/contact",
+  AUTH = "/auth",
+  CART = "/cart",
+  PROFILE = "/profile",
+  ADMIN = "/admin",
 }
-
 
 export enum Pages {
   LOGIN = "signin",
@@ -29,7 +30,6 @@ export enum Pages {
   NEW = "new",
   EDIT = "edit",
 }
-
 
 export enum InputTypes {
   TEXT = "text",
@@ -55,7 +55,6 @@ export enum InputTypes {
   HIDDEN = "hidden",
   MULTI_SELECT = "multi select",
 }
-
 
 export enum Navigate {
   NEXT = "next",

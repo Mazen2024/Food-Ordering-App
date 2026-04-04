@@ -29,6 +29,47 @@ model Users {
   updatedAt     DateTime        @updatedAt
   /// One To Many Relation
   OrderProducts OrderProducts[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 /// Schema For Orders Table 
@@ -66,8 +107,8 @@ model OrderProducts {
 /// Schema For Categories Table 
 model Categories {
   id       String     @id @default(cuid())
-  nameAR     String
-  nameEN     String
+  nameAR   String
+  nameEN   String
   order    Int        @default(autoincrement())
   /// One To Many Relation
   products products[]
@@ -76,17 +117,17 @@ model Categories {
 /// Schema For Products Table 
 model products {
   id            String          @id @default(cuid())
-  nameAR          String
-  nameEN          String
-  descriptionAR   String
-  descriptionEN   String
+  nameAR        String
+  nameEN        String
+  descriptionAR String
+  descriptionEN String
   image         String
   order         Int             @default(autoincrement())
   basePrice     Float
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   /// One To Many Relation
-  sizes          Sizes[]
+  sizes         Sizes[]
   extras        Extras[]
   categories    Categories      @relation(fields: [categoriesId], references: [id])
   categoriesId  String

@@ -47,6 +47,21 @@ export { Prisma }
  */
 export type Users = Prisma.UsersModel
 /**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model VerificationToken
+ * 
+ */
+export type VerificationToken = Prisma.VerificationTokenModel
+/**
  * Model Orders
  * Schema For Orders Table 
  */

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-// import { ValidationErrors } from "@/validations/auth";
 import { useParams } from "next/navigation";
 import { FormField } from "@/lib/types/app";
 import { Languages } from "@/contants/enums";
+import { validationErrors } from "@/validations/authvalidations";
 
 interface Props extends FormField {
-//   error: ValidationErrors;
+  error: validationErrors;
 }
 interface IState {
   showPassword: boolean;
@@ -22,7 +22,7 @@ const PasswordField = ({
   placeholder,
   disabled,
   autofocus,
-//   error,
+  error,
   defaultvalue,
 }: Props) => {
   const [state, setState] = useState(INITIAL_STATE);
@@ -35,14 +35,14 @@ const PasswordField = ({
     }));
 
   const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className="capitalize text-black">
+      <Label htmlFor={name} className="capitalize text-black mb-2 md:mb-4">
         {label}
       </Label>
       <div className="relative flex items-center">
@@ -72,7 +72,7 @@ const PasswordField = ({
           )}
         </button>
       </div>
-      {/* {error && error[name] && (
+      {error && error[name] && (
         <p
           className={`text-accent mt-2 text-sm font-medium ${
             error[name] ? "text-destructive" : ""
@@ -80,7 +80,7 @@ const PasswordField = ({
         >
           {error[name]}
         </p>
-      )} */}
+      )}
     </div>
   );
 };

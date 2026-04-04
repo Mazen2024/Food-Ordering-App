@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-import { i18n, LanguageType } from "./i18n.config";
+import { i18n, LanguageType, Locale } from "./i18n.config";
+import { withAuth } from "next-auth/middleware";
+import { getToken } from "next-auth/jwt";
+import { Pages, Routes } from "./contants/enums";
 
 /// Handle Locale Redirect To Default Locale
 function getLocale(request: NextRequest): string | undefined {
@@ -21,36 +24,72 @@ function getLocale(request: NextRequest): string | undefined {
   return locale;
 }
 
-export default async function proxy(request: NextRequest) {
-  /// Fetch Header Of Request & Variable Store
-  const requestHeaders = new Headers(request.headers);  
+/// Function Proxy Wrapped With Next Auth Method To Handle Authenticated Users
 
-  /// Set New Header Item To request
-  requestHeaders.set("x-url", request.url);
+export default withAuth(
+  async function proxy(request: NextRequest) {
+    /// Fetch Header Of Request & Variable Store
+    const requestHeaders = new Headers(request.headers);
 
-  const pathname = request.nextUrl.pathname;
+    /// Set New Header Item To request
+    requestHeaders.set("x-url", request.url);
 
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}`),
-  );
+    const pathname = request.nextUrl.pathname;
+
+    const pathnameIsMissingLocale = i18n.locales.every(
+      (locale) => !pathname.startsWith(`/${locale}`),
+    );
 
     // لو المستخدم داخل على /
-  if (pathname === "/") {
-    return NextResponse.redirect(new URL("/en", request.url));
-  }
-  
-  // // Redirect if there is no locale
-  // if (pathnameIsMissingLocale) {
-  //   const locale = getLocale(request);
-  //   return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
-  // }
+    if (pathname === "/") {
+      return NextResponse.redirect(new URL(i18n.defaultLocale, request.url));
+    }
 
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
+    // // Redirect if there is no locale
+    // if (pathnameIsMissingLocale) {
+    //   const locale = getLocale(request);
+    //   return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    // }
+
+    /// Define Is Auth Boolean & Is Auth Page ==========> Handle Routing 
+    const isAuth = await getToken({ req: request });
+    const currentLocale = request.url.split("/")[3] as Locale;
+    const isAuthPage = pathname.startsWith(`/${currentLocale}${Routes.AUTH}`);
+
+    /// Define Protected Routes Array Of Pages & Is Protected Boolean
+    const protecteRdoutes = [Routes.ADMIN, Routes.PROFILE];
+    const isProtectedRoute = protecteRdoutes.some((route) =>
+      pathname.startsWith(`/${currentLocale}${route}`),
+    );
+
+    /// Case : Authenticated User && Auth Page
+    if (isAuth && isAuthPage) {
+      return NextResponse.redirect(
+        new URL(`/${currentLocale}${Routes.PROFILE}`, request.url),
+      );
+    }
+
+    /// Case : Not Authenticated User && Protected Route
+    if (!isAuth && isProtectedRoute) {
+      return NextResponse.redirect(
+        new URL(`/${currentLocale}${Routes.AUTH}/${Pages.LOGIN}`, request.url),
+      );
+    }
+
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+  },
+  {
+    callbacks: {
+      async authorized() {
+        return true;
+      },
     },
-  });
-}
+  },
+);
 
 export const config = {
   matcher: [

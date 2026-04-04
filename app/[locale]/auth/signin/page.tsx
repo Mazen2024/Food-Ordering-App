@@ -6,11 +6,19 @@ import getTrans from "@/lib/translation";
 import Custom_Link from "@/components/customlink";
 import { Pages, Routes } from "@/contants/enums";
 import Form from "./_components/Form";
+import useFormFields from "@/hooks/useFormFields";
 
 const LoginPage = async () => {
   const locale = await getCurrentLocale();
 
   const translations = await getTrans(locale);
+
+  const createFormFields = await useFormFields({
+    slug: `${Routes.AUTH}/${Pages.LOGIN}`,
+    trans: translations,
+  });
+
+  // console.log(createFormFields);
 
   return (
     <main className="min-h-[85vh]">
@@ -21,7 +29,10 @@ const LoginPage = async () => {
         <div className="py-44 md:py-40 bg-gray-50 element-center">
           <div className="container element-center">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-              <Form translations={translations} />
+              <Form
+                createFormFields={createFormFields}
+                translations={translations}
+              />
               <p className="mt-2 flex items-center justify-center text-accent text-sm">
                 <span className="text-blue-700 font-semibold">
                   {translations.auth.login.authPrompt.message}

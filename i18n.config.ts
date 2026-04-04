@@ -8,7 +8,7 @@ type i18nType = {
 };
 
 export const i18n: i18nType = {
-  defaultLocale: Languages.ARABIC,
+  defaultLocale: Languages.ENGLISH,
   locales: [Languages.ARABIC, Languages.ENGLISH],
 };
 

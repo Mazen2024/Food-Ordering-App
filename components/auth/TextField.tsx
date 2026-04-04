@@ -1,10 +1,10 @@
 import { FormField } from "@/lib/types/app";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-// import { ValidationErrors } from "@/validations/auth";
+import { validationErrors } from "@/validations/authvalidations";
 
 interface Props extends FormField {
-//   error: any;
+  error: validationErrors;
 }
 
 const TextField = ({
@@ -14,13 +14,13 @@ const TextField = ({
   placeholder,
   disabled,
   autofocus,
-//   error,
+  error,
   defaultvalue,
   readonly,
 }: Props) => {
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className="capitalize text-black mb-2">
+      <Label htmlFor={name} className="capitalize text-black mb-2 md:mb-4">
         {label}
       </Label>
       <Input
@@ -33,7 +33,7 @@ const TextField = ({
         defaultValue={defaultvalue}
         readOnly={readonly}
       />
-      {/* {error && error[name] && (
+      {error && error[name] && (
         <p
           className={`text-accent mt-2 text-sm font-medium ${
             error[name] ? "text-destructive" : ""
@@ -41,7 +41,7 @@ const TextField = ({
         >
           {error[name]}
         </p>
-      )} */}
+      )}
     </div>
   );
 };

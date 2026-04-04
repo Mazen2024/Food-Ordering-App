@@ -1,46 +1,51 @@
 "use client";
-import { Directions, Languages, Pages, Routes } from "@/contants/enums";
+import { Directions, Languages, Routes } from "@/contants/enums";
 import Custom_Link from "../customlink";
-import { Button, buttonVariants } from "../ui/button";
-import { Key, Menu, XIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { Menu, XIcon } from "lucide-react";
 import { useState } from "react";
-import CartButtons from "./CartButtons";
 import { Locale } from "@/i18n.config";
 import { usePathname } from "next/navigation";
+import AuthButtons from "./auth-buttons";
 import LanguageSwitcher from "./language-switcher";
-import { Direction } from "radix-ui";
+import { Translations } from "@/lib/types/Translations";
+import { Session } from "next-auth";
 
-const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : Locale }) => {
+const NavBar = ({
+  trans,
+  locale,
+  initialSession,
+}: {
+  trans: Translations;
+  locale: Locale;
+  initialSession: Session | null;
+}) => {
+  const pathName = usePathname();
 
-  const pathName = usePathname()
+  // console.log(pathName);
 
   const navItems = [
     {
       id: crypto.randomUUID(),
-      name: trans.menu,
+      name: trans.navbar.menu,
       href: `/${locale}${Routes.MENU}`,
     },
     {
       id: crypto.randomUUID(),
-      name: trans.about,
+      name: trans.navbar.about,
       href: `/${locale}${Routes.ABOUT}`,
     },
     {
       id: crypto.randomUUID(),
-      name: trans.contact,
+      name: trans.navbar.contact,
       href: `/${locale}${Routes.CONTACT}`,
-    },
-    {
-      id: crypto.randomUUID(),
-      name: trans.login,
-      href: `/${locale}${Routes.AUTH}/${Pages.LOGIN}`, 
     },
   ];
 
   const [openMenu, setopenMenu] = useState(false);
 
   return (
-    <nav className="flex flex-1 justify-end">
+    <nav className="order-last lg:order-0">
       <Button
         variant={"secondary"}
         size={"sm"}
@@ -68,19 +73,20 @@ const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : 
         </Button>
         {navItems.map((item) => {
           return (
-            <li key={item.id} className="list-none capitalize" dir={locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL}>
+            <li
+              key={item.id}
+              className="list-none capitalize"
+              dir={
+                locale === Languages.ENGLISH ? Directions.LTR : Directions.RTL
+              }
+            >
               <Custom_Link
                 onClick={() => setopenMenu(false)}
-                className={` 
-                  ${
-                    item.href === `${Routes.AUTH}/${Pages.LOGIN}`
-                      ? // Chadcnui Button With Custome Over-ride
-                        `px-8! rounded-full! ${buttonVariants({ size: "lg" })}`
-                      : `hover:text-primary`
-                  }
-                  font-semibold duration-200 transition-colors text-[18px]
-                  ${pathName.startsWith(`${item.href}`)? 'text-primary' : ''}
-                `}
+                className={
+                  pathName === item.href
+                    ? "px-8! rounded-full! text-primary font-bold text-[16px]"
+                    : "px-8! rounded-full! hover:text-primary font-semibold duration-200 transition-colors text-[16px]"
+                }
                 href={item.href}
               >
                 {item.name}
@@ -88,9 +94,17 @@ const NavBar = ({ trans, locale }: { trans: { [Key: string]: string }, locale : 
             </li>
           );
         })}
+        <li className="lg:hidden flex flex-col gap-4 px-8">
+          <div onClick={() => setopenMenu(false)}>
+            <AuthButtons
+              translation={trans}
+              locale={locale}
+              initialSession={initialSession}
+            />
+          </div>
+          <LanguageSwitcher />
+        </li>
       </ul>
-      <LanguageSwitcher /> 
-      <CartButtons locale= {locale}  />
     </nav>
   );
 };

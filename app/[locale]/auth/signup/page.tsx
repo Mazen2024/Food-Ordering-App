@@ -5,11 +5,17 @@ import { Pages, Routes } from "@/contants/enums";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import getTrans from "@/lib/translation";
 import Form from "./_components/Form";
+import useFormFields from "@/hooks/useFormFields";
 
 const RegisterPage = async () => {
   const locale = await getCurrentLocale();
 
   const translations = await getTrans(locale);
+
+  const createFormFields = await useFormFields({
+    slug: `${Routes.AUTH}/${Pages.REGISTER}`,
+    trans: translations,
+  });
 
   return (
     <main className="min-h-[85vh]">
@@ -20,7 +26,7 @@ const RegisterPage = async () => {
         <div className="py-44 md:py-40 bg-gray-50 element-center">
           <div className="container element-center">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-              <Form translations={translations} />
+              <Form createFormFields={createFormFields} translations={translations} locale= {locale} />
               <p className="mt-2 flex items-center justify-center text-accent text-sm">
                 <span className="text-blue-700 font-semibold">
                   {translations.auth.register.authPrompt.message}

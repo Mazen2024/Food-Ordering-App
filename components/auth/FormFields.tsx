@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import { FormField } from "@/lib/types/app";
 import PasswordField from "./PasswordField";
 import { InputTypes } from "@/contants/enums";
 import TextField from "./TextField";
-// import { ValidationErrors } from "@/validations/auth";
+import { validationErrors } from "@/validations/authvalidations";
 
 interface Props extends FormField {
-    // error: any;
+  error: validationErrors;  
 }
 
 const FormFields = (props: Props) => {
