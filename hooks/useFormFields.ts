@@ -58,6 +58,55 @@ const useFormFields = async ({ slug, trans }: Props) => {
     ];
   };
 
+  //// Create Profile Inputs Function
+  const ProfileFields = (): FormField[] => {
+    return [
+      {
+        label: trans.profile.form.name.label,
+        name: "name",
+        type: "text",
+        placeholder: trans.profile.form.name.placeholder,
+        autofocus: true,
+      },
+      {
+        label: trans.profile.form.email.label,
+        name: "email",
+        type: "email",
+        placeholder: trans.profile.form.email.placeholder,
+      },
+      {
+        label: trans.profile.form.phone.label,
+        name: "phone",
+        type: "text",
+        placeholder: trans.profile.form.phone.placeholder,
+      },
+      {
+        label: trans.profile.form.address.label,
+        name: "streetaddress",
+        type: "text",
+        placeholder: trans.profile.form.address.placeholder,
+      },
+      {
+        label: trans.profile.form.postalCode.label,
+        name: "postalcode",
+        type: "text",
+        placeholder: trans.profile.form.postalCode.placeholder,
+      },
+      {
+        label: trans.profile.form.city.label,
+        name: "city",
+        type: "text",
+        placeholder: trans.profile.form.city.placeholder,
+      },
+      {
+        label: trans.profile.form.country.label,
+        name: "country",
+        type: "text",
+        placeholder: trans.profile.form.country.placeholder,
+      },
+    ];
+  };
+
   /// Switching For Route
   const createFormFields = (): FormField[] => {
     switch (slug) {
@@ -65,6 +114,8 @@ const useFormFields = async ({ slug, trans }: Props) => {
         return loginFields();
       case `${Routes.AUTH}/${Pages.REGISTER}`:
         return signUpFields();
+      case `${Routes.PROFILE}`:
+        return ProfileFields();
       default:
         return [];
     }

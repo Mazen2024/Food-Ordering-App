@@ -15,6 +15,8 @@ const Header = async () => {
 
   const initialSession = await getServerSession(authOptions);
 
+  // console.log(initialSession);  
+
   return (
     <header className="py-4 md:py-6">
       <div className="container flex items-center justify-between gap-6 lg:gap-8">

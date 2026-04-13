@@ -5,6 +5,7 @@ import { i18n, LanguageType, Locale } from "./i18n.config";
 import { withAuth } from "next-auth/middleware";
 import { getToken } from "next-auth/jwt";
 import { Pages, Routes } from "./contants/enums";
+import { UserRoles } from "./lib/generated/prisma/enums";
 
 /// Handle Locale Redirect To Default Locale
 function getLocale(request: NextRequest): string | undefined {
@@ -51,7 +52,7 @@ export default withAuth(
     //   return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
     // }
 
-    /// Define Is Auth Boolean & Is Auth Page ==========> Handle Routing 
+    /// Define Is Auth Boolean & Is Auth Page ==========> Handle Routing
     const isAuth = await getToken({ req: request });
     const currentLocale = request.url.split("/")[3] as Locale;
     const isAuthPage = pathname.startsWith(`/${currentLocale}${Routes.AUTH}`);
@@ -64,9 +65,34 @@ export default withAuth(
 
     /// Case : Authenticated User && Auth Page
     if (isAuth && isAuthPage) {
-      return NextResponse.redirect(
-        new URL(`/${currentLocale}${Routes.PROFILE}`, request.url),
-      );
+      if (isAuth.role !== UserRoles.ADMIN) {
+        return NextResponse.redirect(
+          new URL(`/${currentLocale}${Routes.PROFILE}`, request.url),
+        );
+      } else {
+        return NextResponse.redirect(
+          new URL(`/${currentLocale}${Routes.ADMIN}`, request.url),
+        );
+      }
+    }
+
+    /// Case : Authenticated User && Try To Access Admin DashBoard : User Role Condition
+    if (isAuth) {
+      if (
+        pathname.startsWith(`/${currentLocale}${Routes.ADMIN}`) &&
+        isAuth.role !== UserRoles.ADMIN
+      ) {
+        return NextResponse.redirect(
+          new URL(`/${currentLocale}${Routes.PROFILE}`, request.url),
+        );
+      } else if (
+        pathname.startsWith(`/${currentLocale}${Routes.PROFILE}`) &&
+        isAuth.role !== UserRoles.USER
+      ) {
+        return NextResponse.redirect(
+          new URL(`/${currentLocale}${Routes.ADMIN}`, request.url),
+        );
+      }
     }
 
     /// Case : Not Authenticated User && Protected Route

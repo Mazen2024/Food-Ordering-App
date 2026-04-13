@@ -10,6 +10,8 @@ import AuthButtons from "./auth-buttons";
 import LanguageSwitcher from "./language-switcher";
 import { Translations } from "@/lib/types/Translations";
 import { Session } from "next-auth";
+import { UserRoles } from "@/lib/generated/prisma/enums";
+import { useClientSession } from "@/hooks/useClientSession";
 
 const NavBar = ({
   trans,
@@ -22,7 +24,9 @@ const NavBar = ({
 }) => {
   const pathName = usePathname();
 
-  // console.log(pathName);
+  // console.log(initialSession?.user.role);
+
+  const session = useClientSession(initialSession)
 
   const navItems = [
     {
@@ -39,6 +43,11 @@ const NavBar = ({
       id: crypto.randomUUID(),
       name: trans.navbar.contact,
       href: `/${locale}${Routes.CONTACT}`,
+    },
+    {
+      id: crypto.randomUUID(),
+      name: session.data?.user.role === UserRoles.ADMIN? trans.navbar.admin : trans.navbar.profile,
+      href: session.data?.user.role === UserRoles.ADMIN? `/${locale}${Routes.ADMIN}` : `/${locale}${Routes.PROFILE}`,
     },
   ];
 

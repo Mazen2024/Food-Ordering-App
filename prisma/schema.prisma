@@ -27,6 +27,7 @@ model Users {
   country       String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  role          UserRoles       @default(USER)
   /// One To Many Relation
   OrderProducts OrderProducts[]
   accounts      Account[]
@@ -168,4 +169,10 @@ enum ProExtras {
   ONION
   MEAT
   PEPPER
+}
+
+/// Enum For User Roles
+enum UserRoles {
+  ADMIN
+  USER
 }

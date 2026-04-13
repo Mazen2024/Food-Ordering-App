@@ -28,3 +28,11 @@ export const ProExtras = {
 } as const
 
 export type ProExtras = (typeof ProExtras)[keyof typeof ProExtras]
+
+
+export const UserRoles = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+} as const
+
+export type UserRoles = (typeof UserRoles)[keyof typeof UserRoles]

@@ -1,10 +1,17 @@
 "use server";
+import { Routes } from "@/contants/enums";
 import { Locale } from "@/i18n.config";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
 import { prismaObj } from "@/lib/prisma";
 import getTrans from "@/lib/translation";
-import { loginSchema, signUpSchema } from "@/validations/authvalidations";
+import {
+  loginSchema,
+  signUpSchema,
+  UpdateProfileSchema,
+} from "@/validations/authvalidations";
 import bcrypt from "bcrypt";
+import { url } from "inspector";
+import { revalidatePath } from "next/cache";
 
 //// Login Logic Server Action
 export const loginLogic = async (
@@ -128,10 +135,7 @@ export const signUpLogic = async (prevState: unknown, formData: FormData) => {
       },
       status: 201,
     };
-    
-  }
-  
-  catch (error) {
+  } catch (error) {
     console.log(error);
     return {
       message: translate.messages.unexpectedError,

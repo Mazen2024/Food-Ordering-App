@@ -1,20 +1,26 @@
 import { Label } from "../ui/label";
 import { Checkbox as ShadcnCheckbox } from "../ui/checkbox";
 import { FormField } from "@/lib/types/app";
+import { validationErrors } from "@/validations/authvalidations";
+
+interface Props extends FormField {
+  error: validationErrors;
+}
 
 interface Props {
   onClick?: () => void;
   checked?: boolean;
-  label: FormField["label"];
+  label?: FormField["label"];
   name: FormField["name"];
+  id: FormField["id"];
 }
 
-const CheckBoxField = ({ label, name, checked, onClick }: Props) => {
+const CheckBoxField = ({ label, id, name, checked, onClick }: Props) => {
   return (
     <div className="text-accent flex items-center gap-2">
       <ShadcnCheckbox
         type="button"
-        id={name}
+        id={id}
         name={name}
         onClick={onClick}
         checked={checked}
