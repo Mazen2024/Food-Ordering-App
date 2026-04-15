@@ -32,7 +32,7 @@ const ProfilePage = async ({
             <MainHeading title={trans.profile.title} subtitle="" />
           </div>
           <EditUserForm
-            user={session?.user || undefined}
+            user={session?.user}
             trans={trans}
             createFormFields={createFormFields}
             locale={locale}
