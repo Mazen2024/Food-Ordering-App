@@ -33,7 +33,7 @@ const EditUserForm = ({
   createFormFields,
   locale,
 }: {
-  user: Users;
+  user: Users | any;
   trans: Translations;
   createFormFields: FormField[];
   locale: Locale;

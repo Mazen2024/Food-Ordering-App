@@ -6,7 +6,7 @@ import useFormFields from "@/hooks/useFormFields";
 import { Locale } from "@/i18n.config";
 import getTrans from "@/lib/translation";
 import { authOptions } from "@/Server/DB/Auth";
-import { getServerSession } from "next-auth";
+import { getServerSession, User } from "next-auth";
 
 const ProfilePage = async ({
   params,
@@ -32,7 +32,7 @@ const ProfilePage = async ({
             <MainHeading title={trans.profile.title} subtitle="" />
           </div>
           <EditUserForm
-            user={session?.user}
+            user={session?.user || undefined}
             trans={trans}
             createFormFields={createFormFields}
             locale={locale}
