@@ -36,7 +36,7 @@ const EditUserForm = ({
   user: Users | any;
   trans: Translations;
   createFormFields: FormField[];
-  locale: Locale;
+  locale?: Locale;
 }) => {
   const [isAdmin, setIsAdmin] = useState(user.role === UserRole.ADMIN);
 
